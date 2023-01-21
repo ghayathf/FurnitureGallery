@@ -1,0 +1,109 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnFavourate>
+
+@{
+    ViewData["Title"] = "MyFavourate";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<h1>MyFavourate</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        margin: 1rem;
+    }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card a {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 50%;
+        font-size: 18px;
+    }
+
+        .card a:hover {
+            opacity: 0.7;
+        }
+</style>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4">
+            <div class="card">
+                <img src=@Url.Content("~/Images/" + item.Product.ImagePath)
+                 asp-append-version="true" style="width:150; height:250px;">
+                <h2>@item.Product.Namee</h2>
+                <p class="price">@item.Product.Price JD</p>
+                <p>@item.Product.Category.CategoryName</p>
+                <p><a asp-action="RemoveFavourate" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></p>
+                <p><a class="btn btn-warning" href="@Url.Action("shopping","Customer",new{id=item.Product.Id})">Add To Cart</a></p>
+
+            </div>
+        </div>
+    }
+</div>
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Namee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product.ImageFile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Fullname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Namee)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Fullname)
+                </td>
+                <td>
+                <img src=@Url.Content("~/Images/" + item.Product.ImagePath)
+                     asp-append-version="true" style="border-radius:20%;" width="100" height="100" />
+                </td>
+                <td>
+                    <div class="media">
+                        <a class="btn btn-warning" href="@Url.Action("shopping","Customer",new{id=item.Product.Id})">Add To Cart</a>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="RemoveFavourate" asp-controller="Customer" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>*@

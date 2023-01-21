@@ -1,0 +1,62 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnCategory>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_CustomerLayout";
+}
+
+<!DOCTYPE html>
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+        margin: 1rem;
+    }
+
+    .price {
+        color: grey;
+        font-size: 22px;
+    }
+
+    .card a {
+        border: none;
+        outline: 0;
+        padding: 12px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 50%;
+        font-size: 18px;
+    }
+
+        .card a:hover {
+            opacity: 0.7;
+        }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body class="container">
+    <h1>Customers Index</h1>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4">
+                <div class="card">
+                    <img src=@Url.Content("~/Images/" + item.Imagepath)
+                     asp-append-version="true" style="width:150; height:250px;">
+                    <h2>@item.CategoryName</h2>
+                    <p><a href="/Customer/productsForCategory/@item.Id" class="btn btn-primary">EXPLORE NOW</a></p>
+
+
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

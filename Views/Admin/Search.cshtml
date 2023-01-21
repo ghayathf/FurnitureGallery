@@ -1,0 +1,68 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnOrder>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-6">
+
+        <form asp-action="Search" method="post">
+
+            <input type="date" class="form-control" name="stratDate" placeholder="Start Date">
+
+            <input type="date" class="form-control" name="endDate" placeholder="End Date">
+
+            <button type="submit" class="btn btn-dark">Search</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<h1>Search</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Datee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.ImagePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Datee)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Fullname)
+                </td>
+            <td>
+                    <img src=@Url.Content("~/Images/" + item.User.ImagePath)
+                     asp-append-version="true" style="border-radius:20%;" width="100" height="200" />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

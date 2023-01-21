@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnProduct>
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "_CustomerLayout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>productsForCategory</title>
+</head>
+<body class="container">
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Namee)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.ImageFile)
+            </th>
+                <th scope="col">
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+       
+            <td>
+                <div class="media">
+                     @Html.DisplayFor(modelItem => item.Namee)
+                </div>
+            </td>
+            <td>
+                <div class="media">
+                     @Html.DisplayFor(modelItem => item.Price)
+                </div>
+            </td>
+            <td>
+                <div class="media">
+                    <img src=@Url.Content("~/Images/" + item.ImagePath)
+                     asp-append-version="true" style="border-radius:20%;" width="100" height="100" />
+                </div>
+            </td>
+            <td>
+                <div class="media">
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </div>
+            </td>
+        
+            
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

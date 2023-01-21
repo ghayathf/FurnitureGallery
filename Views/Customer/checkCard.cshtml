@@ -1,0 +1,507 @@
+﻿@model FurnitureShop.Models.FurnBank
+
+@{
+    ViewData["Title"] = "checkCard";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.cc__main__container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #87a4ae;
+}
+
+.header {
+  position: absolute;
+  top: 15px;
+  left: 220px;
+  width: 100%;
+  color: rgb(0, 128, 255);
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+  font-size: 40px;
+}
+.subheader {
+  position: absolute;
+  top: 65px;
+  left: 450px;
+  width: 100%;
+  color: rgb(120, 120, 120);
+}
+
+.subheader span {
+  text-transform: uppercase;
+}
+
+/* Card Form Info */
+
+.form__container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  margin-left: 200px;
+  background-color: #ffffff;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.cc__main__container form {
+  width: 500px;
+  padding: 30px;
+  flex-flow: column;
+  padding-bottom: 60px;
+}
+
+.cc__main__container form .inputBox {
+  margin-top: 40px;
+}
+
+.cc__main__container form .inputBox span {
+  display: block;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: rgb(97, 97, 97);
+  padding: 5px 0;
+}
+
+.cc__main__container form .inputBox input {
+  width: 100%;
+  font-size: 20px;
+  color: rgb(116, 116, 116);
+  padding: 10px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.cc__main__container form .inputBox input::placeholder {
+  color: rgb(203, 203, 203);
+}
+
+.cc__main__container form .multi__box {
+  display: flex;
+  gap: 20px;
+}
+
+.card__main {
+  position: absolute;
+  width: 500px;
+  height: 320px;
+  left: -230px;
+}
+
+/* Card Front Part */
+
+.card__main .Front_card {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  background: linear-gradient(248.61deg, #01c2ff 0.03%, #2d0067 99.03%);
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform: perspective(1000px) rotateY(0deg);
+  transition: transform 0.4s ease-out;
+}
+
+.card__main .Front_card .top_card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.card__main .Front_card .top_card .visa {
+  font-weight: 700;
+  font-size: 50px;
+  font-style: italic;
+  color: #ffffff;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+}
+
+.card__main .Front_card .top_card .logo {
+  margin-top: 5px;
+  position: relative;
+  width: 80px;
+  height: 70px;
+}
+.card__main .Front_card .top_card .logo span {
+  position: absolute;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #5600c2;
+  border-radius: 50%;
+}
+
+.card__main .Front_card .top_card .logo span:nth-child(2) {
+  position: absolute;
+  left: 15px;
+  bottom: 5px;
+  background-color: #00ff85;
+  width: 40px;
+  height: 40px;
+}
+.card__main .Front_card .top_card .logo span:nth-child(3) {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background-color: #0094c2;
+  width: 30px;
+  height: 30px;
+}
+
+.card__main .Front_card .middle_card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-top: 50px;
+  padding: 10px;
+}
+
+.card__main .Front_card .middle_card .chip {
+  display: block;
+  background-color: #d9d9d9;
+  width: 70px;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 20px #505050;
+}
+
+.card__main .Front_card .middle_card .card_number {
+  position: absolute;
+  left: 15px;
+  padding-top: 40px;
+  font-size: 35px;
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+.card__main .Front_card .bottom_card {
+  position: absolute;
+  bottom: 35px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+}
+
+.card__main .Front_card .bottom_card .card_info {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Back Part */
+
+.card__main .back_card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(248.61deg, #01c2ff 0.03%, #2d0067 99.03%);
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  transform: perspective(1000px) rotateY(180deg);
+  transition: transform 0.4s ease-out;
+}
+
+.card__main .back_card .top_card {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.card__main .back_card .top_card .black_strip {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  background-color: black;
+  top: 30px;
+  left: 0;
+}
+
+.card__main .back_card .top_card .cvc_strip {
+  position: absolute;
+  right: 50px;
+  bottom: 30px;
+  width: 80%;
+  height: 50px;
+  background-color: white;
+}
+
+.card__main .back_card .top_card .cvc_strip span {
+  font-size: 25px;
+  display: flex;
+  justify-content: end;
+  margin-top: 8px;
+  padding-right: 20px;
+}
+
+.card__main .back_card .bottom_card {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 120px;
+}
+
+.card__main .back_card .bottom_card .flex {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  padding: 0 20px;
+}
+
+.card__main .back_card .bottom_card .flex .sticker {
+  width: 100px;
+  height: 60px;
+  background: linear-gradient(
+    251.7deg,
+    #999999 2.53%,
+    #dcdcdc 53.8%,
+    #8b8b8b 100%
+  );
+  display: flex;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.card__main .back_card .bottom_card .flex .logo1 {
+  margin-top: 5px;
+  position: relative;
+  width: 80px;
+  height: 70px;
+}
+.card__main .back_card .bottom_card .flex .logo1 span {
+  position: absolute;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #5600c2;
+  border-radius: 50%;
+}
+
+.card__main .back_card .bottom_card .flex .logo1 span:nth-child(2) {
+  position: absolute;
+  left: 15px;
+  bottom: 5px;
+  background-color: #00ff85;
+  width: 40px;
+  height: 40px;
+}
+.card__main .back_card .bottom_card .flex .logo1 span:nth-child(3) {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  background-color: #0094c2;
+  width: 30px;
+  height: 30px;
+}
+</style>
+<div class="cc__main__container">
+    <div class="form__container">
+        <h1 class="header">Credit Card</h1>
+        <p class="subheader">by <span>FurnitureWorld</span></p>
+        <div class="card__main">
+            <div class="Front_card">
+                <div class="top_card">
+                    <span class="visa">VISA</span>
+                    <div class="logo">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="middle_card">
+                    <span class="chip"></span>
+                    <div class="card_number">0000 0000 0000 0000</div>
+                </div>
+                <div class="bottom_card">
+                    <div class="card_info">
+                        <div class="card_holder_name">@ViewBag.usernameee</div>
+                    </div>
+                    <div class="card_info">
+                        <div class="card_holder_info">
+                            <span class="expire_month">MM</span>
+                            <span>/</span>
+                            <span class="expire_year">YY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="back_card">
+                <div class="top_card">
+                    <span class="black_strip"></span>
+                    <div class="cvc_strip">
+                        <span class="cvc_number">000</span>
+                    </div>
+                </div>
+                <div class="bottom_card">
+                    <div class="flex">
+                        <span class="sticker"></span>
+                        <div class="logo1">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form asp-action="checkCard">
+            <div class="inputBox">
+                <span>card holder name</span>
+                <input type="text" disabled maxlength="30" class="card-holder-input" value="@ViewBag.usernameee" />
+            </div>
+            <div class="inputBox">
+                <span>card number</span>
+                <input asp-for="CardNumber" type="text" maxlength="16" class="card-number-input" placeholder="0000 0000 0000 0000" />
+            </div>
+
+            <div class="multi__box">
+                <div class="inputBox">
+                    <span>exp. (MM)</span>
+                    <input type="text" maxlength="2" class="card-month-input" placeholder="00" />
+                </div>
+                <div class="inputBox">
+                    <span>exp. (YY)</span>
+                    <input type="text" maxlength="2" class="card-year-input" placeholder="00" />
+                </div>
+                <div class="inputBox">
+                    <span>CVV</span>
+                    <input asp-for="Cvv" type="text" maxlength="3" class="card-cvc-input" placeholder="000" />
+                </div>
+            </div>
+            <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autoplay="false"></audio>
+            <input id="btn" type="submit" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<script>
+    const btn = document.getElementById("btn");
+
+    btn.onclick = () => {
+        // Here you will add path to local file you have
+        const audio = new Audio(
+            "https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/success.mp3"
+        );
+
+        audio.play();
+    };
+    // Get all the input box
+    const cardNumberInput = document.querySelector(".card-number-input");
+    const cardHolderInput = document.querySelector(".card-holder-input");
+    const cardMonthInput = document.querySelector(".card-month-input");
+    const cardYearInput = document.querySelector(".card-year-input");
+    const cardCVCInput = document.querySelector(".card-cvc-input");
+
+    // Get all the Text box
+    const cardNumberText = document.querySelector(".card_number");
+    const cardHolderText = document.querySelector(".card-holder-name");
+    const cardMonthText = document.querySelector(".expire_month");
+    const cardYearText = document.querySelector(".expire_year");
+    const cardCVCText = document.querySelector(".cvc_number");
+
+    // Front and Back card
+    const frontCard = document.querySelector(".Front_card");
+    const backCard = document.querySelector(".back_card");
+
+    let originNum = "0000 0000 0000 0000";
+    let originMon = "MM";
+    let originYear = "YY";
+    let originCVC = "000";
+
+    // Number on Card Input
+    const numberInput = () => {
+        cardNumberInput.addEventListener("input", () => {
+            if (cardNumberInput.value === "") {
+                return (cardNumberText.innerHTML = originNum);
+            } else {
+                cardNumberText.innerText = cardNumberInput.value
+                    .toString()
+                    .replace(/\d{4}(?=.)/g, "$& ");
+            }
+        });
+    };
+    numberInput();
+
+    // Name on Card Input
+    document.querySelector(".card-holder-input").oninput = () => {
+        document.querySelector(
+            ".card_holder_name"
+        ).innerText = document.querySelector(".card-holder-input").value;
+    };
+
+    // Expire Date on Card Input
+    const expireDate = () => {
+        cardMonthInput.addEventListener("input", () => {
+            if (cardMonthInput.value === "") {
+                return (cardMonthText.innerText = originMon);
+            } else {
+                cardMonthText.innerText = cardMonthInput.value;
+            }
+        });
+
+        cardYearInput.addEventListener("input", () => {
+            if (cardYearInput.value === "") {
+                return (cardYearText.innerText = originYear);
+            } else {
+                cardYearText.innerText = cardYearInput.value;
+            }
+        });
+    };
+    expireDate();
+
+    // Card Flip on mouse control
+    const cardFlip = () => {
+        cardCVCInput.addEventListener("mouseenter", () => {
+            frontCard.style.transform = "perspective(1000px) rotateY(-180deg)";
+            backCard.style.transform = "perspective(1000px) rotateY(0deg)";
+        });
+        cardCVCInput.addEventListener("mouseleave", () => {
+            frontCard.style.transform = "perspective(1000px) rotateY(0deg)";
+            backCard.style.transform = "perspective(1000px) rotateY(180deg)";
+        });
+    };
+    cardFlip();
+
+    // CVC number on Card Input
+    const cvcNumber = () => {
+        cardCVCInput.addEventListener("input", () => {
+            if (cardCVCInput.value === "") {
+                return (cardCVCText.innerText = originCVC);
+            } else {
+                cardCVCText.innerText = cardCVCInput.value;
+            }
+        });
+    };
+    cvcNumber();
+
+</script>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnTestimonial>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
+
+}
+<h1>Users</h1>
+
+<div class="card">
+
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+                if (item.UserId != null)
+                { 
+                <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Fullname)
+            </td>
+            <td>
+                            @if (item.Status == "1")
+                            {
+                                <h6> Accepted </h6>
+                            }
+                            else{
+                                <h6> Declined </h6>
+                            }
+                
+            </td>
+            <td>
+                    <form asp-action="Accept" asp-controller="FurnTestimonials" asp-route-id="@item.Id">
+                        <input type="submit" class="btn btn-success" value="Accept" />
+                </form>
+                </td>
+                <td>
+
+                    <form asp-action="Reject" asp-controller="FurnTestimonials" asp-route-id="@item.Id">
+                        <input class="btn btn-danger" type="submit" value="Reject" />
+                    </form>
+                </td>
+            
+        </tr>
+                }
+            }
+    </tbody>
+</table>
+</div>

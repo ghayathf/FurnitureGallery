@@ -1,0 +1,65 @@
+﻿@model IEnumerable<FurnitureShop.Models.FurnPayment>
+
+@{
+    ViewData["Title"] = "AllPayments";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-6">
+
+        <form asp-action="AllPayments" method="post">
+            <label for="stratDate">Start Date</label>
+            <input type="date" class="form-control" name="stratDate" id="stratDate" placeholder="Start Date">
+            <label for="endDate">End Date</label>
+            <input type="date" class="form-control" name="endDate" id="endDate" placeholder="End Date">
+
+            <button type="submit" class="btn btn-info">Search</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+<h1>AllPayments</h1>
+<div class="card">
+<table class="table" id="datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paydate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.ImageFile)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paydate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Fullname)
+            </td>
+            <td>
+                    <img src=@Url.Content("~/Images/" + item.User.ImagePath)
+                     asp-append-version="true" style="border-radius:20%;" width="100" height="100" />
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
